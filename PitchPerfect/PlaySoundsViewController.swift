@@ -27,15 +27,31 @@ class PlaySoundsViewController: UIViewController {
     var stopTimer: Timer!
     
     enum ButtonType: Int {
-        case slow = 0, fast, chipmunk, vader, echo, reverb
+        case slow = 1, fast, vader, chipmunk, echo, reverb
     }
     
     @IBAction func playSoundForButton(_ sender: UIButton) {
-        print("Play Sound Button Pressed")
+        switch (ButtonType(rawValue: sender.tag)!) {
+        case .slow:
+            playSound(rate: 0.5)
+        case .fast:
+            playSound(rate: 1.5)
+        case .vader:
+            playSound(pitch: -1000)
+        case .chipmunk:
+            playSound(pitch : 1000)
+        case .echo:
+            playSound(echo: true)
+        case .reverb:
+            playSound(reverb: true)
+        }
+        
+        configureUI(.playing)
     }
     
     @IBAction func stopButtonPressed(_ sender: AnyObject) {
         print("Stop Audio Button Pressed")
+        stopAudio()
     }
     
     
